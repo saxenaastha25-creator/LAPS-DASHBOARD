@@ -1,0 +1,610 @@
+/* =====================================================================
+   STYLE.CSS
+   Land Acquisition Delay Prediction System (LADS) - Dashboard Prototype
+   Smart India Hackathon 2026
+
+   This file is organised into sections:
+   1. CSS variables (colors, spacing, fonts)
+   2. Base / reset styles
+   3. Header
+   4. Sidebar + layout
+   5. Stat cards
+   6. Panels (risk distribution, info panel)
+   7. Table
+   8. Footer
+   9. Responsive rules
+   ===================================================================== */
+
+/* ---------------------------------------------------------------------
+   1. CSS VARIABLES
+   Keeping colors and spacing as variables makes the whole dashboard
+   easy to re-theme later without hunting through the file.
+--------------------------------------------------------------------- */
+:root {
+  /* Core palette: light neutral background, dark text, blue-teal accent */
+  --color-bg: #f4f6f8;
+  --color-surface: #ffffff;
+  --color-border: #dfe4e8;
+
+  --color-text-primary: #1c2b36;
+  --color-text-secondary: #5b6b77;
+  --color-text-muted: #8b98a3;
+
+  --color-accent: #0f5f73;       /* primary blue-teal */
+  --color-accent-dark: #0b4b5c;  /* header / hover shade */
+  --color-accent-soft: #e6f0f2;  /* light accent background */
+
+  /* Status colors, used sparingly for meaning (not decoration) */
+  --color-ontrack: #2f7d4f;
+  --color-ontrack-bg: #eaf5ee;
+  --color-atrisk: #b3730a;
+  --color-atrisk-bg: #fbf2e2;
+  --color-delayed: #b23b32;
+  --color-delayed-bg: #fbeceb;
+
+  /* Spacing scale */
+  --space-xs: 6px;
+  --space-sm: 12px;
+  --space-md: 20px;
+  --space-lg: 28px;
+  --space-xl: 40px;
+
+  /* Layout */
+  --sidebar-width: 230px;
+  --header-height: 68px;
+  --radius: 6px;
+
+  /* Typography */
+  --font-base: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+}
+
+/* ---------------------------------------------------------------------
+   2. BASE / RESET
+--------------------------------------------------------------------- */
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-base);
+  background-color: var(--color-bg);
+  color: var(--color-text-primary);
+  font-size: 15px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4 {
+  margin: 0;
+  font-weight: 600;
+  color: var(--color-text-primary);
+}
+
+p {
+  margin: 0;
+}
+
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* Visible keyboard focus outline for accessibility */
+a:focus-visible,
+button:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+/* ---------------------------------------------------------------------
+   3. HEADER
+--------------------------------------------------------------------- */
+.app-header {
+  height: var(--header-height);
+  background-color: var(--color-accent-dark);
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 var(--space-lg);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.logo-box {
+  width: 38px;
+  height: 38px;
+  background-color: #ffffff;
+  color: var(--color-accent-dark);
+  border-radius: var(--radius);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 14px;
+  flex-shrink: 0;
+}
+
+.header-titles h1 {
+  font-size: 16px;
+  color: #ffffff;
+  line-height: 1.2;
+}
+
+.header-titles p {
+  font-size: 12px;
+  color: #cfe0e5;
+  margin-top: 2px;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+}
+
+.header-badge {
+  font-size: 12px;
+  background-color: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  padding: 4px 10px;
+  border-radius: 999px;
+  color: #e7f1f3;
+}
+
+.user-chip {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.user-avatar {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: var(--color-accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.user-name {
+  font-size: 13px;
+  color: #eaf3f5;
+}
+
+/* ---------------------------------------------------------------------
+   4. LAYOUT (SIDEBAR + MAIN)
+--------------------------------------------------------------------- */
+.app-body {
+  display: flex;
+  align-items: flex-start;
+  min-height: calc(100vh - var(--header-height));
+}
+
+.sidebar {
+  width: var(--sidebar-width);
+  flex-shrink: 0;
+  background-color: var(--color-surface);
+  border-right: 1px solid var(--color-border);
+  min-height: calc(100vh - var(--header-height));
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: sticky;
+  top: var(--header-height);
+}
+
+.sidebar-nav {
+  padding: var(--space-md) 0;
+}
+
+.nav-link {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: 11px var(--space-lg);
+  font-size: 14px;
+  color: var(--color-text-secondary);
+  border-left: 3px solid transparent;
+}
+
+.nav-link:hover {
+  background-color: var(--color-accent-soft);
+  color: var(--color-accent-dark);
+}
+
+.nav-link.active {
+  background-color: var(--color-accent-soft);
+  color: var(--color-accent-dark);
+  border-left-color: var(--color-accent);
+  font-weight: 600;
+}
+
+.nav-icon {
+  font-size: 10px;
+  width: 14px;
+  text-align: center;
+  color: var(--color-accent);
+}
+
+.sidebar-footer {
+  padding: var(--space-md) var(--space-lg);
+  border-top: 1px solid var(--color-border);
+}
+
+.sidebar-footer p {
+  font-size: 12px;
+  color: var(--color-text-muted);
+}
+
+.sidebar-version {
+  margin-top: 2px;
+  font-weight: 600;
+  color: var(--color-text-secondary) !important;
+}
+
+.main-content {
+  flex: 1;
+  padding: var(--space-lg);
+  max-width: 1200px;
+}
+
+.page-intro {
+  margin-bottom: var(--space-lg);
+}
+
+.page-intro h2 {
+  font-size: 20px;
+  margin-bottom: 6px;
+}
+
+.page-intro p {
+  font-size: 13.5px;
+  color: var(--color-text-secondary);
+  max-width: 70ch;
+}
+
+/* ---------------------------------------------------------------------
+   5. STAT CARDS
+--------------------------------------------------------------------- */
+.stat-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: var(--space-md);
+  margin-bottom: var(--space-lg);
+}
+
+.stat-card {
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  padding: var(--space-md);
+  border-top: 3px solid var(--color-accent);
+}
+
+.stat-card--ontrack {
+  border-top-color: var(--color-ontrack);
+}
+
+.stat-card--atrisk {
+  border-top-color: var(--color-atrisk);
+}
+
+.stat-card--delayed {
+  border-top-color: var(--color-delayed);
+}
+
+.stat-label {
+  font-size: 12.5px;
+  color: var(--color-text-secondary);
+  margin-bottom: 8px;
+}
+
+.stat-value {
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--color-text-primary);
+  line-height: 1;
+}
+
+.stat-unit {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--color-text-secondary);
+}
+
+.stat-sub {
+  font-size: 11.5px;
+  color: var(--color-text-muted);
+  margin-top: 8px;
+}
+
+/* ---------------------------------------------------------------------
+   6. PANELS (Risk distribution / info)
+--------------------------------------------------------------------- */
+.panel-row {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: var(--space-md);
+  margin-bottom: var(--space-lg);
+}
+
+.panel {
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  padding: var(--space-md);
+}
+
+.panel-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: var(--space-md);
+}
+
+.panel-header h3 {
+  font-size: 15px;
+}
+
+.panel-note {
+  font-size: 11.5px;
+  color: var(--color-text-muted);
+}
+
+/* Risk distribution bars: built as simple horizontal divs, no chart library */
+.risk-bars {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-md);
+}
+
+.risk-bar-row {
+  display: grid;
+  grid-template-columns: 70px 1fr 34px;
+  align-items: center;
+  gap: var(--space-sm);
+  font-size: 12.5px;
+}
+
+.risk-bar-track {
+  background-color: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: 999px;
+  height: 10px;
+  overflow: hidden;
+}
+
+.risk-bar-fill {
+  height: 100%;
+  border-radius: 999px;
+}
+
+.risk-bar-fill--low {
+  background-color: var(--color-ontrack);
+}
+
+.risk-bar-fill--medium {
+  background-color: var(--color-atrisk);
+}
+
+.risk-bar-fill--high {
+  background-color: var(--color-delayed);
+}
+
+.risk-legend {
+  display: flex;
+  gap: var(--space-md);
+  border-top: 1px solid var(--color-border);
+  padding-top: var(--space-sm);
+}
+
+.risk-legend li {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: var(--color-text-secondary);
+}
+
+.legend-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.legend-dot--low { background-color: var(--color-ontrack); }
+.legend-dot--medium { background-color: var(--color-atrisk); }
+.legend-dot--high { background-color: var(--color-delayed); }
+
+.info-list li {
+  font-size: 13px;
+  color: var(--color-text-secondary);
+  padding: 8px 0;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.info-list li:last-child {
+  border-bottom: none;
+}
+
+/* ---------------------------------------------------------------------
+   7. TABLE
+--------------------------------------------------------------------- */
+.table-panel {
+  margin-bottom: var(--space-lg);
+}
+
+.table-scroll {
+  overflow-x: auto;
+}
+
+.projects-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+.projects-table th,
+.projects-table td {
+  text-align: left;
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--color-border);
+  white-space: nowrap;
+}
+
+.projects-table th {
+  font-size: 11.5px;
+  color: var(--color-text-secondary);
+  font-weight: 600;
+  border-bottom: 2px solid var(--color-border);
+}
+
+.projects-table tbody tr:hover {
+  background-color: var(--color-accent-soft);
+}
+
+/* Small colored pill used inside table cells for Risk Level / Status */
+.pill {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 999px;
+  font-size: 11.5px;
+  font-weight: 600;
+}
+
+.pill--low,
+.pill--ontrack {
+  background-color: var(--color-ontrack-bg);
+  color: var(--color-ontrack);
+}
+
+.pill--medium,
+.pill--atrisk {
+  background-color: var(--color-atrisk-bg);
+  color: var(--color-atrisk);
+}
+
+.pill--high,
+.pill--delayed {
+  background-color: var(--color-delayed-bg);
+  color: var(--color-delayed);
+}
+
+.data-disclaimer {
+  font-size: 11.5px;
+  color: var(--color-text-muted);
+  padding: var(--space-sm) 0 var(--space-lg);
+  border-top: 1px dashed var(--color-border);
+}
+
+/* ---------------------------------------------------------------------
+   8. FOOTER
+--------------------------------------------------------------------- */
+.app-footer {
+  text-align: center;
+  padding: var(--space-md);
+  font-size: 11.5px;
+  color: var(--color-text-muted);
+  border-top: 1px solid var(--color-border);
+  background-color: var(--color-surface);
+}
+
+/* ---------------------------------------------------------------------
+   9. RESPONSIVE RULES
+--------------------------------------------------------------------- */
+
+/* Tablet: fewer stat columns, sidebar stays but content narrows */
+@media (max-width: 1024px) {
+  .stat-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .panel-row {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Mobile: sidebar collapses to a horizontal top bar, stats stack */
+@media (max-width: 720px) {
+  .app-body {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    width: 100%;
+    min-height: auto;
+    position: static;
+    border-right: none;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .sidebar-nav ul {
+    display: flex;
+    overflow-x: auto;
+  }
+
+  .nav-link {
+    border-left: none;
+    border-bottom: 3px solid transparent;
+    padding: var(--space-sm);
+    white-space: nowrap;
+  }
+
+  .nav-link.active {
+    border-left-color: transparent;
+    border-bottom-color: var(--color-accent);
+  }
+
+  .sidebar-footer {
+    display: none;
+  }
+
+  .stat-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .header-titles p {
+    display: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .stat-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .header-badge {
+    display: none;
+  }
+}
+
+/* Respect users who prefer reduced motion (no heavy animation used anyway) */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none !important;
+  }
+}

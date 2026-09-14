@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LADS | Land Acquisition Delay Prediction System</title>
+
+  <!-- Our custom stylesheet. Must be linked in <head> so styles load before the page is shown. -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- ===================== HEADER ===================== -->
+  <header class="app-header">
+    <div class="header-left">
+      <!-- Simple text-based logo box, no image files needed -->
+      <div class="logo-box">LA</div>
+      <div class="header-titles">
+        <h1>Land Acquisition Delay Prediction System</h1>
+        <p>Smart India Hackathon 2026 &mdash; Student Prototype</p>
+      </div>
+    </div>
+    <div class="header-right">
+      <span class="header-badge">Synthetic Demo Data</span>
+      <div class="user-chip">
+        <span class="user-avatar">RA</span>
+        <span class="user-name">Reviewing Authority</span>
+      </div>
+    </div>
+  </header>
+
+  <div class="app-body">
+
+    <!-- ===================== SIDEBAR ===================== -->
+    <aside class="sidebar">
+      <nav class="sidebar-nav">
+        <ul>
+          <!-- data-page attributes are used by script.js to know which link was clicked -->
+          <li>
+            <a href="#" class="nav-link active" data-page="dashboard">
+              <span class="nav-icon">&#9632;</span> Dashboard
+            </a>
+          </li>
+          <li>
+            <a href="#" class="nav-link" data-page="project-details">
+              <span class="nav-icon">&#9633;</span> Project Details
+            </a>
+          </li>
+          <li>
+            <a href="#" class="nav-link" data-page="risk-prediction">
+              <span class="nav-icon">&#9650;</span> Risk Prediction
+            </a>
+          </li>
+          <li>
+            <a href="#" class="nav-link" data-page="gis-map">
+              <span class="nav-icon">&#9679;</span> GIS Map
+            </a>
+          </li>
+          <li>
+            <a href="#" class="nav-link" data-page="alerts">
+              <span class="nav-icon">&#9888;</span> Alerts &amp; Recommendations
+            </a>
+          </li>
+        </ul>
+      </nav>
+
+      <div class="sidebar-footer">
+        <p>Prototype build</p>
+        <p class="sidebar-version">v0.1 &mdash; UI only</p>
+      </div>
+    </aside>
+
+    <!-- ===================== MAIN CONTENT ===================== -->
+    <main class="main-content">
+
+      <!-- Page heading + short description -->
+      <div class="page-intro">
+        <h2>Dashboard Overview</h2>
+        <p>Summary of land acquisition cases being tracked across districts. All figures below use <strong>synthetic sample data</strong> for demonstration only.</p>
+      </div>
+
+      <!-- ---------- SUMMARY STAT CARDS ---------- -->
+      <section class="stat-grid" aria-label="Key statistics">
+
+        <div class="stat-card">
+          <p class="stat-label">Total Projects</p>
+          <p class="stat-value" id="stat-total">48</p>
+          <p class="stat-sub">Across 12 districts</p>
+        </div>
+
+        <div class="stat-card stat-card--ontrack">
+          <p class="stat-label">On Track</p>
+          <p class="stat-value" id="stat-ontrack">27</p>
+          <p class="stat-sub">56% of total projects</p>
+        </div>
+
+        <div class="stat-card stat-card--atrisk">
+          <p class="stat-label">At Risk</p>
+          <p class="stat-value" id="stat-atrisk">14</p>
+          <p class="stat-sub">29% of total projects</p>
+        </div>
+
+        <div class="stat-card stat-card--delayed">
+          <p class="stat-label">Delayed</p>
+          <p class="stat-value" id="stat-delayed">7</p>
+          <p class="stat-sub">15% of total projects</p>
+        </div>
+
+        <div class="stat-card">
+          <p class="stat-label">Average Delay</p>
+          <p class="stat-value" id="stat-avgdelay">38 <span class="stat-unit">days</span></p>
+          <p class="stat-sub">Across delayed cases</p>
+        </div>
+
+      </section>
+
+      <!-- ---------- RISK DISTRIBUTION + QUICK NOTES ---------- -->
+      <section class="panel-row">
+
+        <div class="panel risk-panel">
+          <div class="panel-header">
+            <h3>Risk Distribution</h3>
+            <span class="panel-note">By project count</span>
+          </div>
+
+          <!-- Simple bar-style risk distribution, no chart library used -->
+          <div class="risk-bars" id="risk-bars">
+            <!-- Bars are filled in by script.js from a sample data array -->
+          </div>
+
+          <ul class="risk-legend">
+            <li><span class="legend-dot legend-dot--low"></span> Low Risk</li>
+            <li><span class="legend-dot legend-dot--medium"></span> Medium Risk</li>
+            <li><span class="legend-dot legend-dot--high"></span> High Risk</li>
+          </ul>
+        </div>
+
+        <div class="panel info-panel">
+          <div class="panel-header">
+            <h3>What This Prototype Shows</h3>
+          </div>
+          <ul class="info-list">
+            <li>Early-warning view of land acquisition progress by district.</li>
+            <li>Risk levels are placeholder values, not model output yet.</li>
+            <li>Backend, database and ML prediction will connect here later.</li>
+            <li>GIS Map and Alerts pages are placeholders in this build.</li>
+          </ul>
+        </div>
+
+      </section>
+
+      <!-- ---------- RECENT PROJECTS TABLE ---------- -->
+      <section class="panel table-panel">
+        <div class="panel-header">
+          <h3>Recent Projects</h3>
+          <span class="panel-note">Sample records &mdash; synthetic data</span>
+        </div>
+
+        <div class="table-scroll">
+          <table class="projects-table" id="projects-table">
+            <thead>
+              <tr>
+                <th>Project Name</th>
+                <th>District</th>
+                <th>Acquisition %</th>
+                <th>Compensation %</th>
+                <th>Risk Level</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <!-- Table rows are generated by script.js from a sample data array,
+                 so the HTML file itself doesn't need to repeat rows manually. -->
+            <tbody id="projects-table-body"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <p class="data-disclaimer">
+        Note: All names, districts, and figures shown on this page are synthetic sample data created for prototype demonstration. They do not represent real government records.
+      </p>
+
+    </main>
+  </div>
+
+  <!-- ===================== FOOTER ===================== -->
+  <footer class="app-footer">
+    <p>Smart India Hackathon 2026 &mdash; Student Prototype &mdash; For demonstration purposes only</p>
+  </footer>
+
+  <!-- Our JavaScript file, loaded at the end of body so the HTML elements exist before script.js runs -->
+  <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Project Details | LADS</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- ===================== HEADER (identical on every page) ===================== -->
+  <header class="app-header">
+    <div class="header-left">
+      <div class="logo-box">LA</div>
+      <div class="header-titles">
+        <h1>Land Acquisition Delay Prediction System</h1>
+        <p>Smart India Hackathon 2026 &mdash; Student Prototype</p>
+      </div>
+    </div>
+    <div class="header-right">
+      <span class="header-badge">Synthetic Demo Data</span>
+      <div class="user-chip">
+        <span class="user-avatar">RA</span>
+        <span class="user-name">Reviewing Authority</span>
+      </div>
+    </div>
+  </header>
+
+  <div class="app-body">
+
+    <!-- ===================== SIDEBAR (identical block, active link set by script.js) ===================== -->
+    <aside class="sidebar">
+      <nav class="sidebar-nav">
+        <ul>
+          <li>
+            <a href="dashboard.html" class="nav-link">
+              <span class="nav-icon">&#9632;</span> Dashboard
+            </a>
+          </li>
+          <li>
+            <a href="project-details.html" class="nav-link">
+              <span class="nav-icon">&#9633;</span> Project Details
+            </a>
+          </li>
+          <li>
+            <a href="risk.html" class="nav-link">
+              <span class="nav-icon">&#9650;</span> Risk Prediction
+            </a>
+          </li>
+          <li>
+            <a href="map.html" class="nav-link">
+              <span class="nav-icon">&#9679;</span> GIS Map
+            </a>
+          </li>
+          <li>
+            <a href="alerts.html" class="nav-link">
+              <span class="nav-icon">&#9888;</span> Alerts &amp; Recommendations
+            </a>
+          </li>
+        </ul>
+      </nav>
+
+      <div class="sidebar-footer">
+        <p>Prototype build</p>
+        <p class="sidebar-version">v0.1 &mdash; UI only</p>
+      </div>
+    </aside>
+
+    <!-- ===================== MAIN CONTENT ===================== -->
+    <main class="main-content">
+
+      <div class="page-intro">
+        <h2>Project Details</h2>
+        <p>Detailed view of a single tracked project. Values below are <strong>sample/synthetic prototype data</strong>, used to demonstrate the layout.</p>
+      </div>
+
+      <div class="detail-grid">
+
+        <!-- LEFT COLUMN: summary + progress + pending issues -->
+        <div>
+          <section class="panel">
+            <div class="panel-header">
+              <h3>Lucknow&ndash;Kanpur Road Expansion</h3>
+              <span class="panel-note">Project ID: LA-2026-014</span>
+            </div>
+
+            <!-- Key fields laid out as a definition list, two per row -->
+            <dl class="detail-field-list">
+              <div class="detail-field">
+                <dt>District</dt>
+                <dd>Lucknow</dd>
+              </div>
+              <div class="detail-field">
+                <dt>Days Elapsed</dt>
+                <dd>220 days</dd>
+              </div>
+              <div class="detail-field">
+                <dt>Pending Legal Cases</dt>
+                <dd>37</dd>
+              </div>
+              <div class="detail-field">
+                <dt>Expected Completion</dt>
+                <dd>300 days (total)</dd>
+              </div>
+            </dl>
+
+            <!-- Acquisition progress bar -->
+            <div class="progress-block">
+              <div class="progress-block-label">
+                <span>Acquisition Status</span>
+                <span id="acquisition-progress-label">68%</span>
+              </div>
+              <div class="progress-track">
+                <div class="progress-fill" style="width: 68%"></div>
+              </div>
+            </div>
+
+            <!-- Compensation progress bar -->
+            <div class="progress-block">
+              <div class="progress-block-label">
+                <span>Compensation Disbursed</span>
+                <span id="compensation-progress-label">54%</span>
+              </div>
+              <div class="progress-track">
+                <div class="progress-fill progress-fill--compensation" style="width: 54%"></div>
+              </div>
+            </div>
+          </section>
+
+          <section class="panel" style="margin-top: var(--space-md);">
+            <div class="panel-header">
+              <h3>Pending Issues</h3>
+            </div>
+            <ul class="pending-issues-list">
+              <li>37 land acquisition cases awaiting legal resolution.</li>
+              <li>Compensation disbursement lagging behind acquisition progress by 14 percentage points.</li>
+              <li>No update recorded from the district office in the last cycle.</li>
+              <li>Right-of-way dispute reported at 2 sub-sections of the route.</li>
+            </ul>
+          </section>
+        </div>
+
+        <!-- RIGHT COLUMN: risk indicator -->
+        <div>
+          <section class="panel risk-indicator-panel">
+            <div class="panel-header">
+              <h3>Predicted Delay Risk</h3>
+            </div>
+            <span class="pill pill--high risk-indicator-value">HIGH</span>
+            <p class="stat-sub">Based on current acquisition pace, pending legal cases and schedule pressure.</p>
+            <a href="risk.html" class="btn btn-primary" style="width: 100%; justify-content: center; margin-top: var(--space-md);">
+              View Risk Prediction
+            </a>
+          </section>
+        </div>
+
+      </div>
+
+      <p class="data-disclaimer">
+        Note: This project record is synthetic sample data created for prototype demonstration. It does not represent a real government project.
+      </p>
+
+    </main>
+  </div>
+
+  <footer class="app-footer">
+    <p>Smart India Hackathon 2026 &mdash; Student Prototype &mdash; For demonstration purposes only</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Risk Prediction | LADS</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header class="app-header">
+    <div class="header-left">
+      <div class="logo-box">LA</div>
+      <div class="header-titles">
+        <h1>Land Acquisition Delay Prediction System</h1>
+        <p>Smart India Hackathon 2026 &mdash; Student Prototype</p>
+      </div>
+    </div>
+    <div class="header-right">
+      <span class="header-badge">Synthetic Demo Data</span>
+      <div class="user-chip">
+        <span class="user-avatar">RA</span>
+        <span class="user-name">Reviewing Authority</span>
+      </div>
+    </div>
+  </header>
+
+  <div class="app-body">
+
+    <aside class="sidebar">
+      <nav class="sidebar-nav">
+        <ul>
+          <li>
+            <a href="dashboard.html" class="nav-link">
+              <span class="nav-icon">&#9632;</span> Dashboard
+            </a>
+          </li>
+          <li>
+            <a href="project-details.html" class="nav-link">
+              <span class="nav-icon">&#9633;</span> Project Details
+            </a>
+          </li>
+          <li>
+            <a href="risk.html" class="nav-link">
+              <span class="nav-icon">&#9650;</span> Risk Prediction
+            </a>
+          </li>
+          <li>
+            <a href="map.html" class="nav-link">
+              <span class="nav-icon">&#9679;</span> GIS Map
+            </a>
+          </li>
+          <li>
+            <a href="alerts.html" class="nav-link">
+              <span class="nav-icon">&#9888;</span> Alerts &amp; Recommendations
+            </a>
+          </li>
+        </ul>
+      </nav>
+
+      <div class="sidebar-footer">
+        <p>Prototype build</p>
+        <p class="sidebar-version">v0.1 &mdash; UI only</p>
+      </div>
+    </aside>
+
+    <main class="main-content">
+
+      <div class="page-intro">
+        <h2>Risk Prediction</h2>
+        <p>Enter project figures below to see a sample risk score. This calculation runs entirely in your browser using placeholder logic &mdash; it will later be replaced by the team's actual ML model and API.</p>
+      </div>
+
+      <section class="panel risk-form-panel">
+        <div class="panel-header">
+          <h3>Project Inputs</h3>
+        </div>
+
+        <!-- This form doesn't submit anywhere; script.js intercepts the
+             "submit" event and calculates a result in the browser. -->
+        <form id="risk-form">
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="input-acquisition">Acquisition (%)</label>
+              <input type="number" id="input-acquisition" min="0" max="100" value="60" required>
+            </div>
+            <div class="form-group">
+              <label for="input-compensation">Compensation (%)</label>
+              <input type="number" id="input-compensation" min="0" max="100" value="50" required>
+            </div>
+            <div class="form-group">
+              <label for="input-legal-cases">Pending Legal Cases</label>
+              <input type="number" id="input-legal-cases" min="0" value="10" required>
+            </div>
+            <div class="form-group">
+              <label for="input-days-elapsed">Days Elapsed</label>
+              <input type="number" id="input-days-elapsed" min="0" value="150" required>
+            </div>
+            <div class="form-group">
+              <label for="input-expected-completion">Expected Completion (days)</label>
+              <input type="number" id="input-expected-completion" min="1" value="300" required>
+            </div>
+            <div class="form-group">
+              <label for="input-previous-delays">Previous Delays (count)</label>
+              <input type="number" id="input-previous-delays" min="0" value="1" required>
+            </div>
+          </div>
+
+          <button type="submit" class="btn btn-primary">Predict Risk</button>
+        </form>
+
+        <!-- Result area, hidden until the form is submitted once (see script.js) -->
+        <div class="risk-result" id="risk-result"></div>
+      </section>
+
+      <p class="data-disclaimer">
+        Note: This is a prototype/demo prediction using a simple placeholder formula, not a trained machine learning model. It will connect to the team's real ML prediction API in a later build.
+      </p>
+
+    </main>
+  </div>
+
+  <footer class="app-footer">
+    <p>Smart India Hackathon 2026 &mdash; Student Prototype &mdash; For demonstration purposes only</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
